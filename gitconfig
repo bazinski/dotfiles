@@ -1,0 +1,28 @@
+# This is Git's per-user configuration file
+# Edit the parameters
+[user]
+    name = Sean Murray
+    email = hamiltonthomas@gmail.com
+[core]
+    autocrlf = input
+    editor = vim
+[github]
+    user = bazinski
+[color]
+    ui = true
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+[alias]
+    # show all branches
+    br = branch -av
+    # update all submodules
+    subup = submodule update --init
+    # list all tags
+    tags = tag -l

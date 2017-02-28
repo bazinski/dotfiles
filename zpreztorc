@@ -1,0 +1,60 @@
+# Prezto options # {{{
+
+# Set case-sensitivity for completion, history lookup, etc.
+zstyle ':prezto:*:*' case-sensitive 'yes'
+
+# Color output (auto set to 'no' on dumb terminals).
+zstyle ':prezto:*:*' color 'yes'
+
+# Set the Prezto modules to load (modules directory)
+# The order matters
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'history-substring-search' \
+  'prompt' \
+  'git' 
+
+# 'syntax-highlighting' \
+## }}}
+
+# Editor # {{{# {{{
+
+# Set the key mapping style to 'emacs' or 'vi'.
+zstyle ':prezto:module:editor' key-bindings 'vi'
+
+# Auto convert .... to ../..
+# zstyle ':prezto:module:editor' dot-expansion 'yes'
+# # }}}# }}}
+
+# Prompt# {{{
+
+# Set the prompt theme to load.
+# Auto set to 'off' on dumb terminals.
+zstyle ':prezto:module:prompt' theme 'bazinski'
+## }}}
+
+# SSH# {{{
+
+# Set the SSH identities to load into the agent.
+#zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_rsa.git'
+## }}}
+
+# Terminal# {{{
+
+# Auto set the tab and window titles.
+zstyle ':prezto:module:terminal' auto-title 'yes'
+
+# Set the window title format.
+zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
+
+# Set the tab title format.
+zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
+## }}}
+
