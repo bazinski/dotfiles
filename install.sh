@@ -1,4 +1,4 @@
-# !/bin/bash/
+#!/usr/bin/sh
 # Check versions and if the packages are present
 # Suggest to pull submodules
 # Create all the necessary symbolic links
@@ -10,6 +10,43 @@
 #printf "- tmux\n"
 #printf "- LXTerminal\n"
 #printf "- dircolors (for commands such as ls)\n\n"
+export LD_LIBRARY_PATH="$HOME/lib:$LD_LIBRARY_PATH"
+export PATH="$HOME/bin:$PATH"
+
+install_tmux(){
+mkdir -p $HOME/tmp/tmuxinstall 
+cd $HOME/tmp/tmuxinstall 
+if [ ! -e libevent-2.1.8-stable.tar.gz ]; then
+  wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+fi
+if [ ! -e libevent-2.1.8-stable.tar.gz ]; then
+  echo "failed to download libevent figure out why ... exiting"
+  exit 1
+fi
+tar xvzf libevent-2.1.8-stable.tar.gz
+cd libevent-2.1.8-stable
+mkdir -p $HOME
+if [ ! -e $HOME/lib/libevent-2.1.so.6   ]; then 
+  #this has not been built or an error occured so rebuild
+  ./configure --prefix=$HOME
+  make && make install
+fi
+
+cd $HOME/tmp/tmuxinstall 
+if [ ! -e tmux-2.2.tar.gz ]; then 
+  wget https://github.com/tmux/tmux/releases/download/2.2/tmux-2.2.tar.gz
+fi
+if [ ! -e tmux-2.2.tar.gz ]; then 
+    echo "failed to download tmux-2-2 figure out why ... exiting"
+    exit 1
+fi
+tar xvzf tmux-2.2.tar.gz
+cd tmux-2.2
+LDFLAGS="-L$HOME/lib -Wl,-rpath=$HOME/lib" CFLAGS="-I $HOME/include" ./configure --prefix=$HOME
+make
+make install
+
+}
 
 symlinker() {
 # a function that performs a creation of symlinks
@@ -80,6 +117,36 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 printf "Done\n\n"
 
+#install tmux if < v2.3 or non existant
+tmux_ver="$(tmux -V | awk '{print $2}' )"
+echo "tmux is version : "${tmux_ver}
+#we need tmux 1.9 or greater for tpm to manage plugins in tmux
+if [[ `echo "$tmux_ver < 1.9"|bc` -eq 1 ]]; then
+  echo "tmux ver is too low";
+  install_tmux
+else 
+  echo "tmux ver is fine $tmux_ver";
+fi
+
+# tmux plugins 
+printf "This scipt is about to remove tmux plugins\n"
+read -p "Are you sure to overwrite the tmux settings?" -n 1 -r
+echo
+export TMUX_PLUGIN_MANAGER_PATH=~/.tmux/plugins/
+if [[ $REPLY =~ ^[Yy]$ ]]; then 
+  printf "Checking for .tmux directory \n"
+  if [ -d ~/.tmux ]; then 
+    rm -rf ~/.tmux/
+  fi
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git clone https://github.com/bazinski/tmux-continuum ~/.tmux/plugins/tmux-continuum
+  export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins"
+   ~/.tmux/plugins/tpm/bin/install_plugins
+fi
+
+cd ~/.tmux/plugins/tpm
+git pull
+~/.tmux/plugins/tpm/bin/update_plugins all
 # .vim directory and plugins
 # delete any previous vim settings
 printf "The scrip is about to remove any current vim settings\n"

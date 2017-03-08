@@ -1,7 +1,7 @@
 # Exports# {{{
 
 export GITHUB_USER="bazinski"
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export MANPAGER="less -X" # sceen is not cleared after quitting the man page
 export EDITOR="vim"
 export VISUAL="vim"
@@ -10,12 +10,14 @@ export VISUAL="vim"
 export OPENTHREADS_INC_DIR="/usr/local/include"
 export OPENTHREADS_LIB_DIR="/usr/local/lib64:/usr/local/lib"
 export PATH="$OPENTHREADS_LIB_DIR:$PATH"
-export LD_LIBRARY_PATH="/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH"
-# export COMPILE_INTROSPECTION=no # uncomment for cygwin
+export LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH"
 #export OSG_FILE_PATH="/usr/local/OpenSceneGraph/data:/usr/local/OpenSceneGraph/data/Images"
 
 # Qt5
 #export QT5PREFIX=/opt/Qt/5.5/gcc_64
+
+#not sure why i need this here, it should work with out it.
+export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins"
 
 # allow terminal to support 256 color schemes
 if [[ $TERM == xterm ]]; then
