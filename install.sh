@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # Check versions and if the packages are present
 # Suggest to pull submodules
 # Create all the necessary symbolic links
@@ -25,7 +25,6 @@ if [ ! -e libevent-2.1.8-stable.tar.gz ]; then
 fi
 tar xvzf libevent-2.1.8-stable.tar.gz
 cd libevent-2.1.8-stable
-mkdir -p $HOME
 if [ ! -e $HOME/lib/libevent-2.1.so.6   ]; then 
   #this has not been built or an error occured so rebuild
   ./configure --prefix=$HOME

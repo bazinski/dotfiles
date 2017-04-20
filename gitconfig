@@ -26,3 +26,5 @@
     subup = submodule update --init
     # list all tags
     tags = tag -l
+[push]
+	default = simple
