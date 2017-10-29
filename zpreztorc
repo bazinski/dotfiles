@@ -37,7 +37,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Set the prompt theme to load.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'bazinski'
+zstyle ':prezto:module:prompt' theme 'paradox'
 ## }}}
 
 # SSH# {{{

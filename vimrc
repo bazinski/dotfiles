@@ -292,4 +292,5 @@ fun! SetDiffColors()
 endfun
 autocmd FilterWritePre * call SetDiffColors()
 
-" }}}
+" Mark the 100th column of text that gets there.
+:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)" }}}
