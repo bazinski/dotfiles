@@ -161,7 +161,7 @@ fi
 vim_ver="$(vim --version | awk '{print $5}' | head -n 1 )"
 echo "vim is version : "${vim_ver}
 #we need tmux 1.9 or greater for tpm to manage plugins in tmux
-if [[ `echo "$vim_ver < 7.4"|bc` -eq 1 ]]; then
+if [[ `echo "$vim_ver < 8"|bc` -eq 1 ]]; then
   echo "vim version is too low";
   install_vim
 else 
