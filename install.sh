@@ -13,6 +13,35 @@
 export LD_LIBRARY_PATH="$HOME/lib:$LD_LIBRARY_PATH"
 export PATH="$HOME/bin:$PATH"
 
+install_vim(){
+
+  #check packages 
+  if yum listed installed "ncurses-devel" > /dev/null 2>&1; then
+     echo "ncurses-devel installed for vim build"
+  else
+    echo " your system is missing ncurses-devel this is too much to build, fix it rather."
+    exit 1
+  fi
+  if yum listed installed "python-devel" > /dev/null 2>&1; then
+     echo "python-devel installed for vim build"
+  else
+    echo " your system is missing python-devel this is too much to build, fix it rather."
+    exit 1
+  fi
+
+mkdir -p $HOME/tmp/vim 
+cd $HOME/tmp/vim
+git clone https://github.com/vim/vim.git
+cd src && git check v8.0.1522
+
+./configure --disable-nls --enable-cscope --enable-gui=no \
+            --enable-multibyte  --enable-pythoninterp --enable-rubyinterp \
+            --prefix=${HOME}/.local/vim --with-features=huge  \
+            --with-python-config-dir=/usr/lib/python2.7/config --with-tlib=ncurses --without-x
+make && make install
+
+}
+
 install_tmux(){
 mkdir -p $HOME/tmp/tmuxinstall 
 cd $HOME/tmp/tmuxinstall 
@@ -127,7 +156,19 @@ else
   echo "tmux ver is fine $tmux_ver";
 fi
 
-# tmux plugins 
+
+#install vim if < v7.4.209 or non existant
+vim_ver="$(vim --version | awk '{print $5}' | head -n 1 )"
+echo "vim is version : "${vim_ver}
+#we need tmux 1.9 or greater for tpm to manage plugins in tmux
+if [[ `echo "$vim_ver < 7.4"|bc` -eq 1 ]]; then
+  echo "vim version is too low";
+  install_vim
+else 
+  echo "vim version is fine $vim_ver";
+fi
+
+  # tmux plugins 
 printf "This scipt is about to remove tmux plugins\n"
 read -p "Are you sure to overwrite the tmux settings?" -n 1 -r
 echo
