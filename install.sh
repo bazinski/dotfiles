@@ -16,13 +16,13 @@ export PATH="$HOME/bin:$PATH"
 install_vim(){
 
   #check packages 
-  if yum listed installed "ncurses-devel" > /dev/null 2>&1; then
+  if yum list installed "ncurses-devel" > /dev/null 2>&1; then
      echo "ncurses-devel installed for vim build"
   else
     echo " your system is missing ncurses-devel this is too much to build, fix it rather."
     exit 1
   fi
-  if yum listed installed "python-devel" > /dev/null 2>&1; then
+  if yum list installed "python-devel" > /dev/null 2>&1; then
      echo "python-devel installed for vim build"
   else
     echo " your system is missing python-devel this is too much to build, fix it rather."
