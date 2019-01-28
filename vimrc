@@ -189,7 +189,7 @@ let g:solarized_termcolors=256
 "let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
 
 " Git gutter
-"let g:gitgutter_override_sign_column_highlight = 0
+set signcolumn=yes
 "highlight SignColumn ctermbg=230
 "highlight GitGutterChange ctermfg=blue
 let g:gitgutter_enabled = 1

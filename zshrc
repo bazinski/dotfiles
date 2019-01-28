@@ -1,7 +1,7 @@
 # Exports# {{{
 
 export GITHUB_USER="bazinski"
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/.local/vim/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export MANPAGER="less -X" # sceen is not cleared after quitting the man page
 export EDITOR="vim"
 export VISUAL="vim"
@@ -62,4 +62,4 @@ COMPLETION_WAITING_DOTS="true"
 eval `dircolors ~/.dircolors`
 ## }}}
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/.local/vim" # Add RVM to PATH for scripting
