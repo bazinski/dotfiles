@@ -166,8 +166,8 @@ let g:syntastic_cpp_config_file = '~/.syntastic_cpp_config_file'
 " Solarized color scheme
 set t_Co=256
 let g:solarized_termcolors=256
-set background=light
-colorscheme solarized
+#set background=light
+#colorscheme solarized
 
 " CtrlP
 "map <leader>t <C-p>
