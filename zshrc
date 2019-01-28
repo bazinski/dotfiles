@@ -34,9 +34,9 @@ export LANG="$LC_ALL"
 alias vi="vim"
 alias tmux="tmux -2" # 256 colors mode
 alias tmuxkillall="tmux ls | cut -d : -f 1 | xargs -I {} tmux kill-session -t {}" # tmux kill all sessions
+alias weather="curl wttr.in/"
 #alias ct="ctags -R --exclude=.git --exclude=node_modules"
 ## }}}
-alias weather="curl wttr.in/"
 # Environment variables # {{{
 dots="$HOME/github/dotfiles"
 algs="$HOME/github/codalgs/cforce"
