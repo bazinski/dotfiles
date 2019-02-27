@@ -64,4 +64,4 @@ eval `dircolors ~/.dircolors`
 # Install ruby gems to ~/gems
 export GEM_HOME="$HOME/gems"
 
-export PATH="$PATH:$HOME/gems:$HOME/.rvm/bin:$HOME/.local/vim" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/gems/bin:$HOME/.rvm/bin:$HOME/.local/vim" # Add RVM to PATH for scripting
