@@ -1,7 +1,7 @@
 # Exports# {{{
 
 export GITHUB_USER="bazinski"
-export PATH="$HOME/.local/vim/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$PATH:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/gems/bin:$HOME/.rvm/bin:$HOME/.local/bin:$HOME/.local/vim/bin" # Add RVM to PATH for scripting
 export MANPAGER="less -X" # sceen is not cleared after quitting the man page
 export EDITOR="vim"
 export VISUAL="vim"
@@ -40,7 +40,7 @@ alias weather="curl wttr.in/"
 # Environment variables # {{{
 dots="$HOME/github/dotfiles"
 algs="$HOME/github/codalgs/cforce"
-insitu="$HOME/github/dura-europos-insitu"
+insitu="$HOME/github/chpcgrid"
 ## }}}
 
 # Other # {{{
@@ -64,4 +64,3 @@ eval `dircolors ~/.dircolors`
 # Install ruby gems to ~/gems
 export GEM_HOME="$HOME/gems"
 
-export PATH="$PATH:$HOME/gems/bin:$HOME/.rvm/bin:$HOME/.local/bin:$HOME/.local/vim" # Add RVM to PATH for scripting
