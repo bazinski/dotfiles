@@ -5,6 +5,9 @@ set ff=unix
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 
+" no annoying bell at end of line etc.
+set noerrorbells
+
 " Use vim, not vi api
 set nocompatible
 
@@ -48,10 +51,14 @@ set tabstop=4
 set shiftwidth=4
 "
 " " Turn on line numbers
-set number
+set nu
+
+" setup undo
+set undodir=~/.vim/undodir
+set undofile
 "
 " " Highlight tailing whitespace
-" set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:\ \ ,trail:·
 
 " Get rid of the delay when pressing O (for example)
 " "
@@ -105,8 +112,19 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'       " required by vundle
-Plugin 'altercation/vim-colors-solarized'
-"Plugin 'flazz/vim-colorschemes'  " diff color schemes, we will only use solarized
+
+Plugin 'morhetz/gruvbox'
+Plugin 'jremmen/vim-ripgrep'
+Plugin 'tpope/vim-fugitive'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'vim-utils/vim-man'
+Plugin 'lyuts/vim-rtags'
+Plugin 'git@github.com:kien/ctrlp.vim.git'
+"Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+Plugin 'zxqfl/tabnine-vim'
+Plugin 'mbbill/undotree'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'flazz/vim-colorschemes'  " diff color schemes
 "Plugin 'tomtom/tcomment-vim'
 "Plugin 'junegunn/goyo.vim',{ 'on','Goyo'}
 "Plugin 'junegunn/limelight.vim', {'on': 'LimeLight'}
@@ -115,19 +133,16 @@ Plugin 'djoshea/vim-autoread'
 Plugin 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
 Plugin 'majutsushi/tagbar' " class outliner viewer
 Plugin 'chrisbra/vim-zsh'
-Plugin 'tpope/vim-fugitive'
 Plugin 'Raimondi/delimitMate'
 Plugin 'jlanzarotta/bufexplorer' " <leader>be,bs,bt,bv
 Plugin 'Konfekt/FastFold'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/c.vim'
-"Plugin 'vim-scripts/OmniCppComplete' " may require additional steps for installation
 "language-specific plugins
 Plugin 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
 Plugin 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
@@ -163,11 +178,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_config_file = '~/.syntastic_cpp_config_file'
 
-" Solarized color scheme
-set t_Co=256
-let g:solarized_termcolors=256
-#set background=light
-#colorscheme solarized
 
 " CtrlP
 "map <leader>t <C-p>
@@ -203,14 +213,6 @@ map <leader>' :NERDTreeToggle<cr>
 " NERDTree special characters are not used
 let g:NERDTreeDirArrows=0
 
-" Camel Case Motion (for dealing with programming code)
-"map <silent> w <Plug>CamelCaseMotion_w
-"map <silent> b <Plug>CamelCaseMotion_b
-"map <silent> e <Plug>CamelCaseMotion_e
-"sunmap w
-"sunmap b
-"sunmap e
-" }}}
 
 " BINDINGS {{{
 
@@ -238,6 +240,7 @@ let g:NERDTreeDirArrows=0
 
 " " When *.cpp file created, load it from template
 autocmd BufNewFile *.cpp r ~/.vim/template.cpp
+autocmd BufNewFile *.h r ~/.vim/template.h
 
 " " Automatically close the folds when the file is open
 autocmd BufRead * setlocal foldmethod=marker
@@ -294,3 +297,11 @@ autocmd FilterWritePre * call SetDiffColors()
 
 " Mark the 100th column of text that gets there.
 :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)" }}}
+
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" " if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+ " Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>

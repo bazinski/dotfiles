@@ -194,9 +194,9 @@ read -p "Are you sure to overwrite the vim settings? " -n 1 -r
 echo 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     printf "Checking for .vim directory\n"
-    mkdir -p ~/.vim
+    mkdir -p ~/.vim/undodir
     if [ $? -ne 0 ]; then
-        printf "ERROR: could not create ~/.vim directory, check if you have sufficient rights\n"
+        printf "ERROR: could not create ~/.vim/undodir directory, check if you have sufficient rights\n"
     exit 1
     fi
     printf "Done\n\n"
